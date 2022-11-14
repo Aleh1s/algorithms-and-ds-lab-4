@@ -13,13 +13,17 @@ public class Node {
     }
 
     public Node(int id) {
-        this(id, null);
+        this(id, Colour.EMPTY);
     }
 
     public void setId(int id) {
         if (id < 0)
             throw new IllegalArgumentException("Id must be positive, but actually " + id);
         this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setColour(Colour colour) {
@@ -47,10 +51,6 @@ public class Node {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Node{");
-        sb.append("id=").append(id);
-        sb.append(", colour=").append(colour);
-        sb.append('}');
-        return sb.toString();
+        return String.valueOf(id);
     }
 }

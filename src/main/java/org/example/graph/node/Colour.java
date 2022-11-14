@@ -1,6 +1,7 @@
 package org.example.graph.node;
 
 public enum Colour {
+    EMPTY(0),
     RED(1),
     BLUE(2),
     YELLOW(3),

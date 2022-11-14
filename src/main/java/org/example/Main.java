@@ -1,16 +1,16 @@
 package org.example;
 
-import org.jgrapht.generate.CompleteGraphGenerator;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import lombok.SneakyThrows;
+import org.example.graph.ColourGraph;
+import org.example.graph.factory.GraphFactory;
 
 public class Main {
+    @SneakyThrows
     public static void main(String[] args) {
-        UndirectedConnectedGraphBuilder builder =
-                new UndirectedConnectedGraphBuilder("input.xml", 200, 30);
-        builder.build();
+
+        GraphFactory graphFactory = GraphFactory.newInstance();
+        ColourGraph colourGraph = graphFactory.newColourGraph();
+
 
 
 //        int numberOfVertices = 200;

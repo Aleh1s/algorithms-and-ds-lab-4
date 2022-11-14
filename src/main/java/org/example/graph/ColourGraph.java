@@ -2,46 +2,20 @@ package org.example.graph;
 
 import com.google.common.graph.ElementOrder;
 import com.google.common.graph.EndpointPair;
-import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import org.example.graph.exception.ColourGraphException;
 import org.example.graph.node.Node;
 
 import javax.annotation.CheckForNull;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Properties;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 public class ColourGraph implements MutableGraph<Node> {
-    private MutableGraph<Node> sourceGraph;
-    private final String DEFAULT_XML_FILE_NAME;
+    private final MutableGraph<Node> sourceGraph;
 
-    private ColourGraph(MutableGraph<Node> sourceGraph) throws ColourGraphException {
-        Properties props = new Properties();
-        try {
-            props.load(new FileReader("src/main/resources/application.properties"));
-            DEFAULT_XML_FILE_NAME = props.getProperty("xml.file.name");
-        } catch (IOException e) {
-            throw new ColourGraphException(e);
-        }
+    public ColourGraph(MutableGraph<Node> sourceGraph) {
         this.sourceGraph = sourceGraph;
-    }
-
-    public static ColourGraph build() throws ColourGraphException {
-        MutableGraph<Node> sourceGraph = GraphBuilder
-                .undirected()
-                .allowsSelfLoops(false)
-                .build();
-
-        fillGraph(sourceGraph);
-
-        return new ColourGraph(sourceGraph);
-    }
-
-    private static void fillGraph(MutableGraph<Node> sourceGraph) {
-
     }
 
     @Override
@@ -165,5 +139,17 @@ public class ColourGraph implements MutableGraph<Node> {
         return sourceGraph.hashCode();
     }
 
-
+    @Override
+    public String toString() {
+        StringBuffer sb  = new StringBuffer();
+        nodes().stream()
+                .sorted(Comparator.comparing(Node::getId))
+                .forEach(node -> {
+            List<Node> nodes = adjacentNodes(node).stream()
+                    .sorted(Comparator.comparing(Node::getId))
+                    .toList();
+            sb.append(node).append(" ==> ").append(nodes).append('\n');
+        });
+        return sb.toString();
+    }
 }

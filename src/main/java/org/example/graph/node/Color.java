@@ -1,6 +1,6 @@
 package org.example.graph.node;
 
-public enum Colour {
+public enum Color {
     EMPTY(0),
     RED(1),
     BLUE(2),
@@ -9,11 +9,14 @@ public enum Colour {
     BLACK(5),
     ORANGE(6),
     PURPLE(7),
-    GREY(8);
+    GREY(8),
+    BROWN(9),
+    PINK(10),
+    WHITE(11);
 
     private final int number;
 
-    Colour(int number) {
+    Color(int number) {
         this.number = number;
     }
 

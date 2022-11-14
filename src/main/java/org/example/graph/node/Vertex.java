@@ -1,19 +1,16 @@
 package org.example.graph.node;
 
-
-import lombok.AllArgsConstructor;
-
-public class Node {
+public class Vertex implements Comparable<Vertex> {
     private int id;
-    private Colour colour;
+    private Color color;
 
-    private Node(int id, Colour colour) {
+    private Vertex(int id, Color color) {
         this.id = id;
-        this.colour = colour;
+        this.color = color;
     }
 
-    public Node(int id) {
-        this(id, Colour.EMPTY);
+    public Vertex(int id) {
+        this(id, Color.EMPTY);
     }
 
     public void setId(int id) {
@@ -26,20 +23,24 @@ public class Node {
         return id;
     }
 
-    public void setColour(Colour colour) {
-        this.colour = colour;
+    public Vertex copy() {
+        return new Vertex(id, color);
     }
 
-    public Colour getColour() {
-        return colour;
+    public void setColour(Color color) {
+        this.color = color;
+    }
+
+    public Color getColour() {
+        return color;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Node node)) return false;
+        if (!(o instanceof Vertex vertex)) return false;
 
-        return id == node.id;
+        return id == vertex.id;
     }
 
     @Override
@@ -52,5 +53,10 @@ public class Node {
     @Override
     public String toString() {
         return String.valueOf(id);
+    }
+
+    @Override
+    public int compareTo(Vertex o) {
+        return Integer.compare(this.id, o.id);
     }
 }

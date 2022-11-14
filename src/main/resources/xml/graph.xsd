@@ -5,7 +5,7 @@
     <xsd:element name="graph">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element name="vertex" type="vertex" minOccurs="200" maxOccurs="200"/>
+                <xsd:element name="vertex" type="vertex" minOccurs="1" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>

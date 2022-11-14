@@ -1,8 +1,12 @@
 package org.example;
 
 import lombok.SneakyThrows;
+import org.example.algorithm.DepthFirstSearch;
+import org.example.algorithm.Node;
 import org.example.graph.ColourGraph;
 import org.example.graph.factory.GraphFactory;
+
+import java.util.Stack;
 
 public class Main {
     @SneakyThrows
@@ -10,8 +14,10 @@ public class Main {
 
         GraphFactory graphFactory = GraphFactory.newInstance();
         ColourGraph colourGraph = graphFactory.newColourGraph();
-
-
+        DepthFirstSearch search = new DepthFirstSearch(colourGraph);
+        Stack<Node> path = search.search();
+        System.out.println(path.size());
+        System.out.println(path.toString());
 
 //        int numberOfVertices = 200;
 //        int minPower = 1;

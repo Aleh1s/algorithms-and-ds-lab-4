@@ -2,65 +2,97 @@ package org.example.graph;
 
 import com.google.common.graph.ElementOrder;
 import com.google.common.graph.EndpointPair;
+import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import org.example.graph.node.Node;
+import org.example.graph.node.Vertex;
 
 import javax.annotation.CheckForNull;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-public class ColourGraph implements MutableGraph<Node> {
-    private final MutableGraph<Node> sourceGraph;
+import static java.util.Objects.isNull;
 
-    public ColourGraph(MutableGraph<Node> sourceGraph) {
+public class ColourGraph implements MutableGraph<Vertex> {
+    private final MutableGraph<Vertex> sourceGraph;
+
+    public ColourGraph(MutableGraph<Vertex> sourceGraph) {
         this.sourceGraph = sourceGraph;
     }
 
-    @Override
-    @CanIgnoreReturnValue
-    public boolean addNode(Node node) {
-        return sourceGraph.addNode(node);
+    public ColourGraph copy() {
+        MutableGraph<Vertex> sourceCopy = GraphBuilder.undirected()
+                .allowsSelfLoops(false).build();
+
+        Set<EndpointPair<Vertex>> sourceEdges = sourceGraph.edges();
+        Map<Integer, Vertex> copyVertices = new TreeMap<>();
+
+        sourceEdges.forEach(edge -> {
+            Vertex vertexU = edge.nodeU();
+            Vertex vertexV = edge.nodeV();
+
+            Vertex u = copyVertices.get(vertexU.getId());
+            Vertex v = copyVertices.get(vertexV.getId());
+
+            if (isNull(u)) {
+                vertexU = vertexU.copy();
+                copyVertices.put(vertexU.getId(), vertexU);
+            } else vertexU = u;
+
+            if (isNull(v)) {
+                vertexV = vertexV.copy();
+                copyVertices.put(vertexV.getId(), vertexV);
+            } else vertexV = v;
+
+            sourceCopy.putEdge(vertexU, vertexV);
+        });
+
+
+        return new ColourGraph(sourceCopy);
     }
 
     @Override
     @CanIgnoreReturnValue
-    public boolean putEdge(Node node, Node n1) {
-        return sourceGraph.putEdge(node, n1);
+    public boolean addNode(Vertex vertex) {
+        return sourceGraph.addNode(vertex);
     }
 
     @Override
     @CanIgnoreReturnValue
-    public boolean putEdge(EndpointPair<Node> endpointPair) {
+    public boolean putEdge(Vertex vertex, Vertex n1) {
+        return sourceGraph.putEdge(vertex, n1);
+    }
+
+    @Override
+    @CanIgnoreReturnValue
+    public boolean putEdge(EndpointPair<Vertex> endpointPair) {
         return sourceGraph.putEdge(endpointPair);
     }
 
     @Override
     @CanIgnoreReturnValue
-    public boolean removeNode(Node node) {
-        return sourceGraph.removeNode(node);
+    public boolean removeNode(Vertex vertex) {
+        return sourceGraph.removeNode(vertex);
     }
 
     @Override
     @CanIgnoreReturnValue
-    public boolean removeEdge(Node node, Node n1) {
-        return sourceGraph.removeEdge(node, n1);
+    public boolean removeEdge(Vertex vertex, Vertex n1) {
+        return sourceGraph.removeEdge(vertex, n1);
     }
 
     @Override
     @CanIgnoreReturnValue
-    public boolean removeEdge(EndpointPair<Node> endpointPair) {
+    public boolean removeEdge(EndpointPair<Vertex> endpointPair) {
         return sourceGraph.removeEdge(endpointPair);
     }
 
     @Override
-    public Set<Node> nodes() {
+    public Set<Vertex> nodes() {
         return sourceGraph.nodes();
     }
 
     @Override
-    public Set<EndpointPair<Node>> edges() {
+    public Set<EndpointPair<Vertex>> edges() {
         return sourceGraph.edges();
     }
 
@@ -75,57 +107,57 @@ public class ColourGraph implements MutableGraph<Node> {
     }
 
     @Override
-    public ElementOrder<Node> nodeOrder() {
+    public ElementOrder<Vertex> nodeOrder() {
         return sourceGraph.nodeOrder();
     }
 
     @Override
-    public ElementOrder<Node> incidentEdgeOrder() {
+    public ElementOrder<Vertex> incidentEdgeOrder() {
         return sourceGraph.incidentEdgeOrder();
     }
 
     @Override
-    public Set<Node> adjacentNodes(Node node) {
-        return sourceGraph.adjacentNodes(node);
+    public Set<Vertex> adjacentNodes(Vertex vertex) {
+        return sourceGraph.adjacentNodes(vertex);
     }
 
     @Override
-    public Set<Node> predecessors(Node node) {
-        return sourceGraph.predecessors(node);
+    public Set<Vertex> predecessors(Vertex vertex) {
+        return sourceGraph.predecessors(vertex);
     }
 
     @Override
-    public Set<Node> successors(Node node) {
-        return sourceGraph.successors(node);
+    public Set<Vertex> successors(Vertex vertex) {
+        return sourceGraph.successors(vertex);
     }
 
     @Override
-    public Set<EndpointPair<Node>> incidentEdges(Node node) {
-        return sourceGraph.incidentEdges(node);
+    public Set<EndpointPair<Vertex>> incidentEdges(Vertex vertex) {
+        return sourceGraph.incidentEdges(vertex);
     }
 
     @Override
-    public int degree(Node node) {
-        return sourceGraph.degree(node);
+    public int degree(Vertex vertex) {
+        return sourceGraph.degree(vertex);
     }
 
     @Override
-    public int inDegree(Node node) {
-        return sourceGraph.inDegree(node);
+    public int inDegree(Vertex vertex) {
+        return sourceGraph.inDegree(vertex);
     }
 
     @Override
-    public int outDegree(Node node) {
-        return sourceGraph.outDegree(node);
+    public int outDegree(Vertex vertex) {
+        return sourceGraph.outDegree(vertex);
     }
 
     @Override
-    public boolean hasEdgeConnecting(Node node, Node n1) {
-        return sourceGraph.hasEdgeConnecting(node, n1);
+    public boolean hasEdgeConnecting(Vertex vertex, Vertex n1) {
+        return sourceGraph.hasEdgeConnecting(vertex, n1);
     }
 
     @Override
-    public boolean hasEdgeConnecting(EndpointPair<Node> endpointPair) {
+    public boolean hasEdgeConnecting(EndpointPair<Vertex> endpointPair) {
         return sourceGraph.hasEdgeConnecting(endpointPair);
     }
 
@@ -141,15 +173,15 @@ public class ColourGraph implements MutableGraph<Node> {
 
     @Override
     public String toString() {
-        StringBuffer sb  = new StringBuffer();
+        StringBuffer sb = new StringBuffer();
         nodes().stream()
-                .sorted(Comparator.comparing(Node::getId))
-                .forEach(node -> {
-            List<Node> nodes = adjacentNodes(node).stream()
-                    .sorted(Comparator.comparing(Node::getId))
-                    .toList();
-            sb.append(node).append(" ==> ").append(nodes).append('\n');
-        });
+                .sorted(Comparator.comparing(Vertex::getId))
+                .forEach(vertex -> {
+                    List<Vertex> vertices = adjacentNodes(vertex).stream()
+                            .sorted(Comparator.comparing(Vertex::getId))
+                            .toList();
+                    sb.append(vertex).append(" ==> ").append(vertices).append('\n');
+                });
         return sb.toString();
     }
 }

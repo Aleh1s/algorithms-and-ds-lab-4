@@ -7,7 +7,7 @@ import org.example.graph.controller.StAXController;
 import org.example.graph.exception.GraphFactoryException;
 import org.example.graph.exception.StAXControllerException;
 import org.example.graph.factory.GraphFactory;
-import org.example.graph.node.Node;
+import org.example.graph.node.Vertex;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -43,13 +43,13 @@ public final class GraphFactoryImpl extends GraphFactory {
     }
 
     private static ColourGraph buildGraph(List<List<Integer>> adjacencyList) {
-        MutableGraph<Node> graph = GraphBuilder.undirected()
+        MutableGraph<Vertex> graph = GraphBuilder.undirected()
                 .allowsSelfLoops(false).build();
 
         for (int i = 0; i < adjacencyList.size(); i++) {
             List<Integer> adjacentVertices = adjacencyList.get(i);
             for (Integer adjacentVertex : adjacentVertices) {
-                graph.putEdge(new Node(i), new Node(adjacentVertex));
+                graph.putEdge(new Vertex(i), new Vertex(adjacentVertex));
             }
         }
         return new ColourGraph(graph);

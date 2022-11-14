@@ -1,29 +1,27 @@
 package org.example;
 
 import lombok.SneakyThrows;
-import org.example.algorithm.DepthFirstSearch;
-import org.example.algorithm.Node;
-import org.example.graph.ColourGraph;
+import org.example.algorithm.dfs.DepthFirstSearch;
+import org.example.graph.ColorGraph;
 import org.example.graph.exporter.GraphExporter;
 import org.example.graph.exporter.factory.GraphExporterFactory;
 import org.example.graph.factory.GraphFactory;
-
-import java.util.Stack;
 
 public class Main {
     @SneakyThrows
     public static void main(String[] args) {
 
         GraphFactory graphFactory = GraphFactory.newInstance();
-        ColourGraph colourGraph = graphFactory.newColourGraph();
-        DepthFirstSearch search = new DepthFirstSearch(colourGraph);
-        Stack<Node> path = search.search();
+        ColorGraph colorGraph = graphFactory.newColourGraph();
+        DepthFirstSearch search = new DepthFirstSearch(colorGraph);
+        ColorGraph state = search.search();
 
         GraphExporterFactory factory = GraphExporterFactory.newInstance();
         GraphExporter graphExporter = factory.newGraphExporter();
-        graphExporter.setColourGraph(path.pop().getState());
+        graphExporter.setColourGraph(state);
         graphExporter.export();
 
+        
 
 //        int numberOfVertices = 200;
 //        int minPower = 1;

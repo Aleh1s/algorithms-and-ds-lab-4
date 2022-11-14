@@ -6,13 +6,17 @@ public enum Color {
     BLUE(2),
     YELLOW(3),
     GREEN(4),
-    BLACK(5),
+    CHARTREUSE(5),
     ORANGE(6),
     PURPLE(7),
     GREY(8),
     BROWN(9),
     PINK(10),
-    WHITE(11);
+    CADETBLUE(11),
+    DARKSLATEGRAY(12),
+    DARKSLATEBLUE(13),
+    GOLD4(14),
+    AQUAMARINE3(15);
 
     private final int number;
 

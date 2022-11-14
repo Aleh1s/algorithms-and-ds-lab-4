@@ -1,7 +1,7 @@
 package org.example.graph.exporter;
 
 import com.google.common.graph.EndpointPair;
-import org.example.graph.ColourGraph;
+import org.example.graph.ColorGraph;
 import org.example.graph.node.Vertex;
 
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.util.*;
 
 public class GraphExporter {
 
-    private ColourGraph colourGraph;
+    private ColorGraph colorGraph;
     private List<String> lines;
     private final String fileName;
 
@@ -20,8 +20,8 @@ public class GraphExporter {
         this.lines = new LinkedList<>();
     }
 
-    public void setColourGraph(ColourGraph colourGraph) {
-        this.colourGraph = Objects.requireNonNull(colourGraph);
+    public void setColourGraph(ColorGraph colorGraph) {
+        this.colorGraph = Objects.requireNonNull(colorGraph);
     }
 
     public void export() {
@@ -32,12 +32,12 @@ public class GraphExporter {
     private void build() {
         List<String> lines = new LinkedList<>();
         lines.add("graph G {");
-        for (Vertex v : colourGraph.nodes())
+        for (Vertex v : colorGraph.nodes())
             lines.add("  %d [style=filled, color=%s]".formatted(v.getId(), v.getColour().name().toLowerCase()));
 
         lines.add("");
 
-        for (EndpointPair<Vertex> endpointPair : colourGraph.edges())
+        for (EndpointPair<Vertex> endpointPair : colorGraph.edges())
             lines.add("  %d -- %d".formatted(endpointPair.nodeU().getId(), endpointPair.nodeV().getId()));
         lines.add("}");
         this.lines = lines;

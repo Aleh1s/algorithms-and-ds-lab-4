@@ -2,7 +2,7 @@ package org.example.graph.factory.impl;
 
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
-import org.example.graph.ColourGraph;
+import org.example.graph.ColorGraph;
 import org.example.graph.controller.StAXController;
 import org.example.graph.exception.GraphFactoryException;
 import org.example.graph.exception.StAXControllerException;
@@ -30,7 +30,7 @@ public final class GraphFactoryImpl extends GraphFactory {
         }
     }
 
-    public ColourGraph newColourGraph() throws GraphFactoryException {
+    public ColorGraph newColourGraph() throws GraphFactoryException {
         StAXController stAXController = new StAXController(DEFAULT_XSD_FILE_NAME, DEFAULT_XML_FILE_NAME);
 
         try {
@@ -42,7 +42,7 @@ public final class GraphFactoryImpl extends GraphFactory {
         return buildGraph(stAXController.getAdjacencyList());
     }
 
-    private static ColourGraph buildGraph(List<List<Integer>> adjacencyList) {
+    private static ColorGraph buildGraph(List<List<Integer>> adjacencyList) {
         MutableGraph<Vertex> graph = GraphBuilder.undirected()
                 .allowsSelfLoops(false).build();
 
@@ -52,6 +52,6 @@ public final class GraphFactoryImpl extends GraphFactory {
                 graph.putEdge(new Vertex(i), new Vertex(adjacentVertex));
             }
         }
-        return new ColourGraph(graph);
+        return new ColorGraph(graph);
     }
 }

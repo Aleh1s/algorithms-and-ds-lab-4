@@ -1,4 +1,4 @@
-package org.example.algorithm;
+package org.example.algorithm.dfs;
 
 public enum Indicator {
 

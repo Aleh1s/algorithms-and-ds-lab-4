@@ -5,6 +5,7 @@ import com.google.common.graph.EndpointPair;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import org.example.graph.node.Color;
 import org.example.graph.node.Vertex;
 
 import javax.annotation.CheckForNull;
@@ -12,14 +13,19 @@ import java.util.*;
 
 import static java.util.Objects.isNull;
 
-public class ColourGraph implements MutableGraph<Vertex> {
+public class ColorGraph implements MutableGraph<Vertex> {
     private final MutableGraph<Vertex> sourceGraph;
 
-    public ColourGraph(MutableGraph<Vertex> sourceGraph) {
+    public ColorGraph(MutableGraph<Vertex> sourceGraph) {
         this.sourceGraph = sourceGraph;
     }
 
-    public ColourGraph copy() {
+    public boolean isSolution() {
+        return sourceGraph.nodes().stream()
+                .noneMatch(node -> node.getColour().equals(Color.EMPTY));
+    }
+
+    public ColorGraph copy() {
         MutableGraph<Vertex> sourceCopy = GraphBuilder.undirected()
                 .allowsSelfLoops(false).build();
 
@@ -47,7 +53,7 @@ public class ColourGraph implements MutableGraph<Vertex> {
         });
 
 
-        return new ColourGraph(sourceCopy);
+        return new ColorGraph(sourceCopy);
     }
 
     @Override

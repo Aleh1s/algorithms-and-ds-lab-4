@@ -219,4 +219,11 @@ public class ColorGraph implements MutableGraph<Vertex> {
                 });
         return sb.toString();
     }
+
+    public Set<Color> getAdjacentColorsExcept(Vertex vertex, Vertex except) {
+        return adjacentNodes(vertex).stream()
+                .filter(v -> v.getId() != except.getId())
+                .map(Vertex::getColour)
+                .collect(Collectors.toSet());
+    }
 }

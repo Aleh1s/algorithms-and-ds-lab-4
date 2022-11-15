@@ -58,10 +58,10 @@ public class BeeColony {
 
     private void tryToChangeColor(ColorGraph graph, Vertex vertex) {
         Set<Color> usedColors = graph.getUsedColors();
-        Set<Color> adjacentColor = graph.getAdjacentColors(vertex);
+        Set<Color> adjacentColors = graph.getAdjacentColors(vertex);
 
         for (Color c : usedColors) {
-            if (!adjacentColor.contains(c) && !c.equals(vertex.getColour())) {
+            if (!adjacentColors.contains(c) && !c.equals(vertex.getColour())) {
                 vertex.setColour(c);
                 break;
             }
@@ -74,11 +74,11 @@ public class BeeColony {
         Color v1Colour = v1.getColour();
         Color v2Colour = v2.getColour();
 
-        Set<Color> v1AdjacentColors = graph.getAdjacentColors(v1);
+        Set<Color> v1AdjacentColors = graph.getAdjacentColorsExcept(v1, v2);
         canBeSwapped = !v1AdjacentColors.contains(v2Colour);
         if (!canBeSwapped) return false;
 
-        Set<Color> v2AdjacentColors = graph.getAdjacentColors(v2);
+        Set<Color> v2AdjacentColors = graph.getAdjacentColorsExcept(v2, v1);
         canBeSwapped = !v2AdjacentColors.contains(v1Colour);
         if (!canBeSwapped) return false;
 
@@ -89,9 +89,15 @@ public class BeeColony {
 
     private void scout() {
         this.areas = colorGraphs.stream()
-                .map(colorGraph -> new Area(colorGraph, calculateChromaticNumber(colorGraph)))
+                .map(colorGraph -> new Area(colorGraph, calculateChromaticNumber(colorGraph), enqueueVertices(colorGraph)))
                 .collect(Collectors.toList());
         areas.forEach(area -> System.out.printf("Chromatic number: %d%n", area.getChromaticNumber()));
+    }
+
+    private PriorityQueue<Vertex> enqueueVertices(ColorGraph colorGraph) {
+        PriorityQueue<Vertex> vertices = new PriorityQueue<>(Comparator.comparing(colorGraph::getPower));
+        colorGraph.nodes().;
+        return null;
     }
 
     private static int calculateChromaticNumber(ColorGraph colorGraph) {

@@ -1,4 +1,4 @@
-package org.example.graph.exception;
+package org.example.exception;
 
 import org.xml.sax.SAXException;
 

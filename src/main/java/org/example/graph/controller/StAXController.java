@@ -1,6 +1,6 @@
 package org.example.graph.controller;
 
-import org.example.graph.exception.StAXControllerException;
+import org.example.exception.StAXControllerException;
 import org.xml.sax.SAXException;
 
 import javax.xml.stream.XMLEventReader;

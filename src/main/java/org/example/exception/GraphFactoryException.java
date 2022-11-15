@@ -1,4 +1,4 @@
-package org.example.graph.exception;
+package org.example.exception;
 
 public class GraphFactoryException extends Exception {
     public GraphFactoryException() {

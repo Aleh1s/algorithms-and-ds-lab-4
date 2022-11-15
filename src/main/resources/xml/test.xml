@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<graph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="graph.xsd">
+    <vertex id="0">
+        <adjacentVertex id="1"/>
+        <adjacentVertex id="2"/>
+        <adjacentVertex id="9"/>
+    </vertex>
+    <vertex id="1">
+        <adjacentVertex id="0"/>
+        <adjacentVertex id="9"/>
+        <adjacentVertex id="3"/>
+    </vertex>
+    <vertex id="2">
+        <adjacentVertex id="0"/>
+        <adjacentVertex id="5"/>
+        <adjacentVertex id="9"/>
+    </vertex>
+    <vertex id="3">
+        <adjacentVertex id="1"/>
+        <adjacentVertex id="5"/>
+        <adjacentVertex id="4"/>
+    </vertex>
+    <vertex id="4">
+        <adjacentVertex id="3"/>
+        <adjacentVertex id="5"/>
+        <adjacentVertex id="6"/>
+        <adjacentVertex id="8"/>
+        <adjacentVertex id="9"/>
+    </vertex>
+    <vertex id="5">
+        <adjacentVertex id="3"/>
+        <adjacentVertex id="2"/>
+        <adjacentVertex id="4"/>
+        <adjacentVertex id="6"/>
+    </vertex>
+    <vertex id="6">
+        <adjacentVertex id="5"/>
+        <adjacentVertex id="4"/>
+        <adjacentVertex id="7"/>
+        <adjacentVertex id="8"/>
+    </vertex>
+    <vertex id="7">
+        <adjacentVertex id="6"/>
+        <adjacentVertex id="8"/>
+    </vertex>
+    <vertex id="8">
+        <adjacentVertex id="9"/>
+        <adjacentVertex id="4"/>
+        <adjacentVertex id="6"/>
+        <adjacentVertex id="7"/>
+    </vertex>
+    <vertex id="9">
+        <adjacentVertex id="0"/>
+        <adjacentVertex id="2"/>
+        <adjacentVertex id="1"/>
+        <adjacentVertex id="4"/>
+        <adjacentVertex id="8"/>
+    </vertex>
+</graph>

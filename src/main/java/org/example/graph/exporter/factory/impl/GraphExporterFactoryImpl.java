@@ -1,6 +1,6 @@
 package org.example.graph.exporter.factory.impl;
 
-import org.example.graph.exception.GraphExporterFactoryImplException;
+import org.example.exception.GraphExporterFactoryImplException;
 import org.example.graph.exporter.GraphExporter;
 import org.example.graph.exporter.factory.GraphExporterFactory;
 

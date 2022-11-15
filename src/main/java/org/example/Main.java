@@ -1,27 +1,39 @@
 package org.example;
 
 import lombok.SneakyThrows;
+import org.example.algorithm.bee.BeeColony;
+import org.example.algorithm.bee.factory.BeeColonyFactory;
 import org.example.algorithm.dfs.DepthFirstSearch;
 import org.example.graph.ColorGraph;
 import org.example.graph.exporter.GraphExporter;
 import org.example.graph.exporter.factory.GraphExporterFactory;
 import org.example.graph.factory.GraphFactory;
 
+import java.util.List;
+
 public class Main {
     @SneakyThrows
     public static void main(String[] args) {
+//
+//        List<String> strings = List.of("antiquewhite4", "brown3", "maroon", "mediumpurple", "skyblue",
+//                "springgreen", "yellowgreen", "tomato", "navy", "mistyrose", "olive", "darkorange", "chocolate",
+//                "darkred", "khaki");
+//        strings.forEach(s -> System.out.println(s.toUpperCase()));
 
         GraphFactory graphFactory = GraphFactory.newInstance();
         ColorGraph colorGraph = graphFactory.newColourGraph();
         DepthFirstSearch search = new DepthFirstSearch(colorGraph);
-        ColorGraph state = search.search();
+        ColorGraph graph = search.search();
+
+        BeeColonyFactory colonyFactory = BeeColonyFactory.newInstance();
+        BeeColony beeColony = colonyFactory.getBeeColony();
+        beeColony.setColorGraphs(List.of(graph));
+        beeColony.search();
 
         GraphExporterFactory factory = GraphExporterFactory.newInstance();
         GraphExporter graphExporter = factory.newGraphExporter();
-        graphExporter.setColourGraph(state);
+        graphExporter.setColourGraph(graph);
         graphExporter.export();
-
-        
 
 //        int numberOfVertices = 200;
 //        int minPower = 1;

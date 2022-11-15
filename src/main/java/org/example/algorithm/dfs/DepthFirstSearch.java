@@ -17,11 +17,10 @@ public class DepthFirstSearch {
 
     public DepthFirstSearch(ColorGraph graph) {
         this.graph = graph;
-        this.palette = new ArrayList<>(EnumSet.range(RED, AQUAMARINE3));
+        this.palette = new ArrayList<>(EnumSet.range(RED, KHAKI));
     }
 
     public ColorGraph search() {
-        Collections.shuffle(palette);
         Result result = recursive(graph);
 
         if (result.hasSolution())
@@ -52,11 +51,7 @@ public class DepthFirstSearch {
     private List<ColorGraph> getSuccessors(ColorGraph curr) {
         Vertex vertex = getVertexWithoutColour(curr);
 
-        Set<Vertex> vertices = curr.adjacentNodes(vertex);
-        Set<Color> adjacentColors = vertices.stream()
-                .map(Vertex::getColour)
-                .collect(Collectors.toSet());
-
+        Set<Color> adjacentColors = curr.getAdjacentColors(vertex);
         List<ColorGraph> successors = new ArrayList<>();
 
         for (Color c : palette) {
@@ -66,6 +61,7 @@ public class DepthFirstSearch {
                 successors.add(copy);
             }
         }
+        Collections.shuffle(successors);
         return successors;
     }
 

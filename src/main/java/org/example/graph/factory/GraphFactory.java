@@ -1,7 +1,7 @@
 package org.example.graph.factory;
 
 import org.example.graph.ColorGraph;
-import org.example.graph.exception.GraphFactoryException;
+import org.example.exception.GraphFactoryException;
 import org.example.graph.factory.impl.GraphFactoryImpl;
 
 public abstract class GraphFactory {

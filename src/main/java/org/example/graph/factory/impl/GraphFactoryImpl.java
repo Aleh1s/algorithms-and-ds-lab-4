@@ -4,8 +4,8 @@ import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
 import org.example.graph.ColorGraph;
 import org.example.graph.controller.StAXController;
-import org.example.graph.exception.GraphFactoryException;
-import org.example.graph.exception.StAXControllerException;
+import org.example.exception.GraphFactoryException;
+import org.example.exception.StAXControllerException;
 import org.example.graph.factory.GraphFactory;
 import org.example.graph.node.Vertex;
 

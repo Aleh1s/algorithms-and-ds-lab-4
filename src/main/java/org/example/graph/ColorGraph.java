@@ -10,6 +10,7 @@ import org.example.graph.node.Vertex;
 
 import javax.annotation.CheckForNull;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
@@ -54,6 +55,34 @@ public class ColorGraph implements MutableGraph<Vertex> {
 
 
         return new ColorGraph(sourceCopy);
+    }
+
+    public Set<Color> getAdjacentColors(Vertex vertex) {
+        checkVertexExists(vertex);
+        return adjacentNodes(vertex).stream()
+                .map(Vertex::getColour).collect(Collectors.toSet());
+    }
+
+    public Vertex getVertexWithMaxPower() {
+        return nodes().stream()
+                .max(Comparator.comparing(vertex -> adjacentNodes(vertex).size()))
+                .orElseThrow(() -> new IllegalStateException("Cannot find vertex with max power"));
+    }
+
+    public int getPower(Vertex vertex) {
+        checkVertexExists(vertex);
+        return adjacentNodes(vertex).size();
+    }
+
+    private void checkVertexExists(Vertex vertex) {
+        if (!nodes().contains(vertex))
+            throw new IllegalArgumentException("Vertex does not exist");
+    }
+
+    public Set<Color> getUsedColors() {
+        return sourceGraph.nodes().stream()
+                .map(Vertex::getColour)
+                .collect(Collectors.toSet());
     }
 
     @Override

@@ -7,8 +7,8 @@ import java.util.Objects;
 import java.util.PriorityQueue;
 
 public class Area {
+    private int chromaticNumber;
     private final ColorGraph graph;
-    private final int chromaticNumber;
     private final PriorityQueue<Vertex> vertices;
 
     public Area(ColorGraph graph, int chromaticNumber, PriorityQueue<Vertex> vertices) {
@@ -26,5 +26,13 @@ public class Area {
 
     public int getChromaticNumber() {
         return chromaticNumber;
+    }
+
+    public void setChromaticNumber(int chromaticNumber) {
+        this.chromaticNumber = chromaticNumber;
+    }
+
+    public PriorityQueue<Vertex> getVertices() {
+        return vertices;
     }
 }

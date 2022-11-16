@@ -1,7 +1,5 @@
 package org.example.exception;
 
-import org.example.algorithm.bee.factory.BeeColonyFactory;
-
 public class BeeColonyFactoryImplException extends BeeColonyFactoryException {
     public BeeColonyFactoryImplException() {
     }

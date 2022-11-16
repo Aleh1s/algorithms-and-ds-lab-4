@@ -2,10 +2,10 @@ package org.example.graph.factory.impl;
 
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
-import org.example.graph.ColorGraph;
-import org.example.graph.controller.StAXController;
 import org.example.exception.GraphFactoryException;
 import org.example.exception.StAXControllerException;
+import org.example.graph.ColorGraph;
+import org.example.graph.controller.StAXController;
 import org.example.graph.factory.GraphFactory;
 import org.example.graph.node.Vertex;
 
@@ -13,6 +13,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
+
+import static org.example.constant.Constant.*;
 
 public final class GraphFactoryImpl extends GraphFactory {
 
@@ -22,9 +24,9 @@ public final class GraphFactoryImpl extends GraphFactory {
     public GraphFactoryImpl() throws GraphFactoryException {
         Properties props = new Properties();
         try {
-            props.load(new FileReader("src/main/resources/application.properties"));
-            DEFAULT_XML_FILE_NAME = props.getProperty("xml.file.name");
-            DEFAULT_XSD_FILE_NAME = props.getProperty("xsd.file.name");
+            props.load(new FileReader(APPLICATION_PROPERTIES));
+            DEFAULT_XML_FILE_NAME = props.getProperty(XML_FILE_NAME);
+            DEFAULT_XSD_FILE_NAME = props.getProperty(XSD_FILE_NAME);
         } catch (IOException e) {
             throw new GraphFactoryException(e);
         }

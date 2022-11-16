@@ -5,9 +5,9 @@ import org.example.graph.node.Color;
 import org.example.graph.node.Vertex;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-import static org.example.algorithm.dfs.Indicator.*;
+import static org.example.algorithm.dfs.Indicator.FAILURE;
+import static org.example.algorithm.dfs.Indicator.SOLUTION;
 import static org.example.graph.node.Color.*;
 
 public class DepthFirstSearch {

@@ -2,8 +2,6 @@ package org.example.algorithm.dfs;
 
 import org.example.graph.ColorGraph;
 
-import java.util.Objects;
-
 import static org.example.algorithm.dfs.Indicator.FAILURE;
 import static org.example.algorithm.dfs.Indicator.SOLUTION;
 

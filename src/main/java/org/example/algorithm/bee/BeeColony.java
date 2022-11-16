@@ -9,9 +9,9 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-import static java.util.Objects.*;
-import static org.example.graph.node.Color.*;
-import static org.example.graph.node.Color.AQUAMARINE3;
+import static java.util.Objects.nonNull;
+import static java.util.Objects.requireNonNull;
+import static org.example.graph.node.Color.EMPTY;
 
 public class BeeColony {
 
@@ -19,13 +19,15 @@ public class BeeColony {
     private final PriorityQueue<Area> areasQueue;
     private final int numberOfEmployedBees;
     private final int numberOfScoutBees;
-//    private final Set<Color> palette;
+    private final int numberOfIterations;
+    private final int precision;
 
-    public BeeColony(int numberOfEmployedBees, int numberOfScoutBees) {
+    public BeeColony(int numberOfEmployedBees, int numberOfScoutBees, int numberOfIterations, int precision) {
         this.numberOfEmployedBees = numberOfEmployedBees;
         this.numberOfScoutBees = numberOfScoutBees;
-//        this.palette = EnumSet.range(RED, AQUAMARINE3);
-        this.areasQueue = new PriorityQueue<>(Comparator.comparing(Area::getChromaticNumber).thenComparing(area -> area.getVertices().size()));
+        this.numberOfIterations = numberOfIterations;
+        this.precision = precision;
+        this.areasQueue = new PriorityQueue<>(Comparator.comparing(Area::getChromaticNumber));
     }
 
     public void setColorGraphs(List<ColorGraph> colorGraphs) {
@@ -35,31 +37,32 @@ public class BeeColony {
     public List<Integer> search() {
         scoutAll();
         List<Integer> chromaticNumbers = new ArrayList<>();
-        for (int i = 0; i < 1000; i++) {
-            Area peek = areasQueue.peek();
-            if (peek != null)
-                chromaticNumbers.add(peek.getChromaticNumber());
-            System.out.println("Iteration " + (i + 1));
-            System.out.println("Size " + areasQueue.size());
-            int numberOfFreeBees = numberOfEmployedBees;
+        for (int i = 0; i < numberOfIterations; i++) {
+            if (i % precision == 0) {
+                Area peek = areasQueue.peek();
+                if (peek != null)
+                    chromaticNumbers.add(peek.getChromaticNumber());
+            }
 
+            int numberOfFreeBees = numberOfEmployedBees;
             List<Area> perspectiveAreas = new ArrayList<>();
             for (int j = 0; j < numberOfScoutBees - 1; j++)
                 perspectiveAreas.add(areasQueue.poll());
 
-            perspectiveAreas.add(getRandomAreaFromAreasQueue());
+            if (areasQueue.size() != 0)
+                perspectiveAreas.add(getRandomAreaFromAreasQueue());
 
             for (Area area : perspectiveAreas) {
-                System.out.println("Number of free bees " + numberOfFreeBees);
                 if (numberOfFreeBees <= 0)
                     break;
 
                 if (nonNull(area)) {
                     ColorGraph graph = area.getGraph();
+                    if (area.getVertices().size() == 0)
+                        area.setVertices(enqueueVertices(graph));
                     Vertex vertex = area.getVertices().poll();
                     if (nonNull(vertex)) {
                         int power = graph.getPower(vertex);
-                        System.out.println("Max power " + power);
                         int neededBees = Math.min(numberOfFreeBees, power);
                         numberOfFreeBees -= neededBees;
                         paint(graph, vertex, neededBees);
@@ -138,37 +141,11 @@ public class BeeColony {
     }
 
     private static int calculateChromaticNumber(ColorGraph colorGraph) {
-        int size = colorGraph.nodes().stream()
+        return colorGraph.nodes().stream()
                 .map(Vertex::getColour)
                 .filter(colour -> !colour.equals(EMPTY))
                 .collect(Collectors.toSet())
                 .size();
-        System.out.println("Chromatic number " + size);
-        return size;
-    }
-
-    private List<Area> getMostPerspectiveAreas() {
-        Comparator<Area> comparator
-                = Comparator.comparing(Area::getChromaticNumber);
-
-        if (areasQueue.size() == 1)
-            return new ArrayList<>(areasQueue);
-
-        List<Area> mostPerspectiveAreas = new ArrayList<>();
-        if (numberOfScoutBees == 1) {
-            Area area = areasQueue.stream().max(comparator)
-                    .orElseThrow(() -> new IllegalStateException("Cannot find the most perspective areas"));
-            mostPerspectiveAreas.add(area);
-        } else {
-            List<Area> sortedAreas = areasQueue.stream()
-                    .sorted(comparator.reversed()).toList();
-            int number = Math.min(numberOfScoutBees, sortedAreas.size());
-            for (int i = 0; i < number; i++) {
-                mostPerspectiveAreas.add(sortedAreas.get(i));
-            }
-        }
-
-        return mostPerspectiveAreas;
     }
 
     public PriorityQueue<Area> getAreasQueue() {

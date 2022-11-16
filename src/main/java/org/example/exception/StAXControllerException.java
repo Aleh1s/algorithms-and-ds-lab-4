@@ -1,7 +1,5 @@
 package org.example.exception;
 
-import org.xml.sax.SAXException;
-
 public class StAXControllerException extends Exception {
     public StAXControllerException() {
     }

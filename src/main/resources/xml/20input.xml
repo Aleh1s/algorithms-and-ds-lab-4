@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="graph.xsd">
+    <vertex id="0">
+        <adjacentVertex id="5"/>
+        <adjacentVertex id="18"/>
+    </vertex>
+    <vertex id="1">
+        <adjacentVertex id="12"/>
+        <adjacentVertex id="3"/>
+        <adjacentVertex id="15"/>
+    </vertex>
+    <vertex id="2">
+        <adjacentVertex id="4"/>
+        <adjacentVertex id="6"/>
+        <adjacentVertex id="11"/>
+        <adjacentVertex id="12"/>
+    </vertex>
+    <vertex id="3">
+        <adjacentVertex id="1"/>
+        <adjacentVertex id="9"/>
+        <adjacentVertex id="12"/>
+        <adjacentVertex id="11"/>
+    </vertex>
+    <vertex id="4">
+        <adjacentVertex id="13"/>
+        <adjacentVertex id="2"/>
+        <adjacentVertex id="8"/>
+        <adjacentVertex id="12"/>
+        <adjacentVertex id="5"/>
+    </vertex>
+    <vertex id="5">
+        <adjacentVertex id="9"/>
+        <adjacentVertex id="0"/>
+        <adjacentVertex id="6"/>
+        <adjacentVertex id="4"/>
+        <adjacentVertex id="16"/>
+    </vertex>
+    <vertex id="6">
+        <adjacentVertex id="2"/>
+        <adjacentVertex id="15"/>
+        <adjacentVertex id="5"/>
+    </vertex>
+    <vertex id="7">
+        <adjacentVertex id="18"/>
+        <adjacentVertex id="8"/>
+        <adjacentVertex id="9"/>
+        <adjacentVertex id="15"/>
+    </vertex>
+    <vertex id="8">
+        <adjacentVertex id="7"/>
+        <adjacentVertex id="10"/>
+        <adjacentVertex id="4"/>
+    </vertex>
+    <vertex id="9">
+        <adjacentVertex id="3"/>
+        <adjacentVertex id="5"/>
+        <adjacentVertex id="7"/>
+        <adjacentVertex id="16"/>
+    </vertex>
+    <vertex id="10">
+        <adjacentVertex id="8"/>
+        <adjacentVertex id="11"/>
+        <adjacentVertex id="14"/>
+        <adjacentVertex id="18"/>
+    </vertex>
+    <vertex id="11">
+        <adjacentVertex id="10"/>
+        <adjacentVertex id="17"/>
+        <adjacentVertex id="2"/>
+        <adjacentVertex id="3"/>
+    </vertex>
+    <vertex id="12">
+        <adjacentVertex id="15"/>
+        <adjacentVertex id="1"/>
+        <adjacentVertex id="4"/>
+        <adjacentVertex id="3"/>
+        <adjacentVertex id="2"/>
+    </vertex>
+    <vertex id="13">
+        <adjacentVertex id="17"/>
+        <adjacentVertex id="4"/>
+        <adjacentVertex id="14"/>
+    </vertex>
+    <vertex id="14">
+        <adjacentVertex id="16"/>
+        <adjacentVertex id="18"/>
+        <adjacentVertex id="10"/>
+        <adjacentVertex id="13"/>
+    </vertex>
+    <vertex id="15">
+        <adjacentVertex id="6"/>
+        <adjacentVertex id="12"/>
+        <adjacentVertex id="1"/>
+        <adjacentVertex id="7"/>
+        <adjacentVertex id="18"/>
+    </vertex>
+    <vertex id="16">
+        <adjacentVertex id="19"/>
+        <adjacentVertex id="14"/>
+        <adjacentVertex id="17"/>
+        <adjacentVertex id="9"/>
+        <adjacentVertex id="5"/>
+    </vertex>
+    <vertex id="17">
+        <adjacentVertex id="11"/>
+        <adjacentVertex id="13"/>
+        <adjacentVertex id="16"/>
+    </vertex>
+    <vertex id="18">
+        <adjacentVertex id="14"/>
+        <adjacentVertex id="7"/>
+        <adjacentVertex id="0"/>
+        <adjacentVertex id="15"/>
+        <adjacentVertex id="10"/>
+    </vertex>
+    <vertex id="19">
+        <adjacentVertex id="16"/>
+    </vertex>
+</graph>

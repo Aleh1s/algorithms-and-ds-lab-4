@@ -34,5 +34,6 @@ build/
 ### Mac OS ###
 .DS_Store
 
-**/xml
-!src/main/resources/xml/graph.xsd
+**/xml/*
+!**/xml/graph.xsd
+output.txt

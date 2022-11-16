@@ -76,6 +76,10 @@ public class BeeColony {
 
         }
 
+        Area peek = areasQueue.peek();
+        if (peek != null)
+            chromaticNumbers.add(peek.getChromaticNumber());
+
         return chromaticNumbers;
     }
 

@@ -76,7 +76,7 @@ public class Main extends Application {
                 = new XYChart.Series<>();
 
         for (int i = 0; i < result.size(); i++)
-            series.getData().add(new XYChart.Data<>(((i + 1) * precision), result.get(i)));
+            series.getData().add(new XYChart.Data<>((i * precision), result.get(i)));
 
         Scene scene = new Scene(lineChart, 800, 600);
         lineChart.getData().add(series);
